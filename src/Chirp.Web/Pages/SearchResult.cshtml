@@ -1,0 +1,36 @@
+@page "/searchresults"
+@using Chirp.Core
+@model Chirp.Web.Pages.SearchResultsModel
+@{
+ViewData["Title"] = "Search Results";
+Layout = "Shared/_Layout";
+var AuthorName = User.FindFirst("Name")?.Value ?? "User";
+@inject SignInManager<Author> SignInManager
+
+}
+
+<h2>Search Results</h2>
+
+@if (Model.AuthorDTOs.Any())
+{
+<ul>
+    @foreach (var authorDto in Model.AuthorDTOs)
+    {
+    <li>
+        <strong>
+            <a href="/@authorDto.Name">@authorDto.Name</a>
+        </strong>
+    </li>
+    }
+</ul>
+}
+else
+{
+    <em>No authors found matching your search.</em>
+    
+    <h3>Search Again</h3>
+    <form method="get" asp-page-handler="OnGet" class="search-box">
+        <input type="text" name="searchWord" placeholder="Search authors..." value="@Model.SearchWord" />
+        <button type="submit">Search</button>
+    </form>
+}

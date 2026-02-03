@@ -1,0 +1,399 @@
+body {
+  background: #eccaca;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 14px;
+}
+
+a {
+  color: #26776F;
+}
+
+a:hover {
+  color: #333;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="tel"],
+input[type="password"] {
+    background: white;
+    border: 1px solid #e6c0bf;
+    padding: 2px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 14px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    color: #571010;
+}
+
+input[type="submit"] {
+  background: #571010;
+  border: 1px solid #3b0707;
+  padding: 1px 3px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  color: white;
+}
+
+div.page {
+  background: white;
+  border: 1px solid #cc6e6e;
+  width: 700px;
+  margin: 30px auto;
+}
+
+div.page > h1 {
+  background: #cc6e6e;
+  margin: 0;
+  padding: 10px 14px;
+  color: white;
+  letter-spacing: 1px;
+  text-shadow: 0 0 3px #772424;
+  font-weight: normal;
+  font-size: 80px;
+}
+
+div.page h1 img {
+  height: 1em;
+}
+
+div.page div.navigation {
+  background: #DEE9E8;
+  padding: 4px 10px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
+  color: #888;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+div.page div.navigation a {
+  color: #444;
+  font-weight: bold;
+}
+
+div.page div.navigation form {
+    display: contents;
+}
+
+div.page div.navigation form button {
+    padding: unset;
+    background: unset;
+    color: #444;
+    font-weight: bold;
+    display: inline-block;
+    font-size: unset;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: unset;
+    letter-spacing: unset;
+}
+
+div.page h2 {
+  margin: 0 0 15px 0;
+  color: #571010;
+  text-shadow: 0 1px 2px #ccc;
+}
+
+div.page div.body {
+  padding: 10px;
+}
+
+div.page div.footer {
+  background: #eee;
+  color: #888;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+div.page div.followstatus {
+  border: 1px solid #ccc;
+  background: #E3EBEA;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  padding: 3px;
+  font-size: 13px;
+}
+
+div.page ul.cheeps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.page ul.cheeps li {
+    position: relative;
+    margin: 10px 0;
+    padding: 5px;
+    background: #F0FAF9;
+    border: 1px solid #DBF3F1;
+    border-radius: 2px;
+    min-height: 48px;
+    word-wrap: break-word;  /* Allow text to break into a new line */
+    overflow-wrap: break-word; /* Ensure long words also wrap */
+    padding-right: 40px; /* Add space to the right for the like button */
+}
+
+div.page ul.cheeps p {
+  margin: 0;
+}
+
+div.page ul.cheeps li img {
+  float: left;
+  padding: 0 10px 0 0;
+}
+
+div.page ul.cheeps li small {
+  font-size: 0.9em;
+  color: #888;
+}
+
+div.page div.cheepbox {
+  margin: 10px 0;
+  padding: 5px;
+  background: #F0FAF9;
+  border: 1px solid #e29494;
+  border-radius: 2px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+div.page div.cheepbox h3 {
+  margin: 0;
+  font-size: 1em;
+  color: #7e2c2c;
+}
+
+div.page div.cheepbox p {
+  margin: 0;
+}
+
+div.page div.cheepbox input[type="text"] {
+  width: 585px;
+}
+
+div.page div.cheepbox input[type="submit"] {
+  width: 70px;
+  margin-left: 5px;
+}
+
+div.message {
+  list-style: none;
+  margin: 10px 10px 0 10px;
+
+  background: #f3b9b9;
+  border: 1px solid #ce8181;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  padding: 4px;
+  font-size: 13px;
+}
+
+ul.message li {
+  background: #f3b9b9;
+  border: 1px solid #ce8181;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  padding: 4px;
+  font-size: 13px;
+}
+
+div.error {
+  margin: 10px 0;
+  background: #FAE4E4;
+  border: 1px solid #DD6F6F;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  padding: 4px;
+  font-size: 13px;
+}
+
+div.topics {
+  width: 180px;
+  height: 250px;
+  background: #ffffff;
+  border: 1px solid #e29494;
+  border-radius: 2px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-left: 460px;
+  padding: 10px;
+}
+
+ul.topic {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li.topic {
+  margin: 10px 0;
+  padding: 5px;
+  background: #F0FAF9;
+  border: 1px solid #DBF3F1;
+  border-radius: 2px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  min-height: 20px;
+}
+
+form * {
+    margin: 2px 0;
+}
+
+button {
+    background-color: #cc6e6e;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #8b4949;
+}
+
+ul.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #cc6e6e;
+}
+
+ul.nav li {
+    float: left;
+}
+
+ul.nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 8px 8px;
+    text-decoration: none;
+}
+
+ul.nav li a:hover {
+    background-color: #8b4949;
+}
+
+/* Container for the button and the like counter */
+.like-button-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center;
+    position: absolute; /* Position it inside the parent (li) */
+    right: 10px; /* Distance from the right side of the parent container (li) */
+    top: 50%; /* Vertically center the button */
+    transform: translateY(-50%); /* Adjust for exact centering */
+}
+
+.like-button-container .heart {
+    margin-bottom: 5px; /* Add space between the button and the number */
+}
+
+/* Button styles for both "liked" and "not liked" states */
+.like-button-liked, .like-button-not-liked {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px; /* Consistent size for both states */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    text-align: center;
+    line-height: 0;
+    width: 24px; /* Set fixed size */
+    height: 24px; /* Set fixed size */
+    box-sizing: border-box;
+    z-index: 10; /* Ensure it's on top */
+}
+
+/* Heart icon styles for "not liked" state */
+.like-button-not-liked .heart {
+    font-family: 'Arial', sans-serif;
+    color: transparent;
+    -webkit-text-stroke: 2px black; /* Black outline */
+    font-size: 18px; /* Consistent size */
+    line-height: 0;
+    vertical-align: middle;
+    position: relative;
+    z-index: 20;
+}
+
+/* Heart icon styles for "liked" state */
+.like-button-liked .heart {
+    font-family: 'Arial', sans-serif;
+    color: red;
+    -webkit-text-stroke: 2px red; /* Red outline */
+    font-size: 18px; /* Consistent size */
+    line-height: 0;
+    vertical-align: middle;
+    position: relative;
+    z-index: 20;
+}
+
+/* Hover effects for "not liked" state */
+.like-button-not-liked:hover .heart {
+    color: rgba(255, 0, 0, 0.5); /* 50% transparent red fill on hover */
+    -webkit-text-stroke: 2px rgba(255, 0, 0, 0.5); /* Black outline on hover */
+}
+
+/* Hover effects for "liked" state */
+.like-button-liked:hover .heart {
+    color: rgba(255, 0, 0, 0.5); /* 50% transparent red fill on hover */
+    -webkit-text-stroke: 2px rgba(255, 0, 0, 0.5); /* Black outline on hover */
+}
+
+/* Prevent focus outline, background, or shadow */
+.like-button-not-liked:focus,
+.like-button-liked:focus,
+.like-button-not-liked:hover,
+.like-button-liked:hover {
+    outline: none;
+    background: none;
+    box-shadow: none;
+}
+
+/* Remove any pseudo-element effects */
+.like-button-not-liked::before,
+.like-button-not-liked::after,
+.like-button-liked::before,
+.like-button-liked::after {
+    content: none;
+}
+
+/* Optional: Ensure button has no inherent box model spacing */
+.like-button-not-liked, .like-button-liked {
+    width: auto;
+    height: auto;
+    box-sizing: border-box;
+}
+
+/* Style for the number under the button */
+.like-button-container span {
+    display: block;
+    font-size: 12px; /* Smaller size for the counter */
+    margin-top: 2px; /* Adjust spacing */
+    color: black;
+    position: relative;
+    top: -2px; /* Fine-tune vertical position */
+    text-align: center; /* Center the number */
+    margin-left: 1px; /* Small adjustment to center the number with the button */
+}

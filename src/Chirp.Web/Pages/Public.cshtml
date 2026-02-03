@@ -1,0 +1,175 @@
+﻿@page "/"
+@using Chirp.Core
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.CodeAnalysis.Scripting
+@model Chirp.Web.Pages.PublicModel
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+    var authorName = User.FindFirst("Name")?.Value ?? "User";
+    @inject SignInManager<Author> SignInManager
+}
+
+<style>
+    /* This CSS hides the body until the scroll position is restored */
+    body.hidden {
+        visibility: hidden;
+    }
+</style>
+
+<div>
+    <div style="padding-top: 8px">
+        <h2 style="float: left"> Public Timeline </h2>
+        <form method="get" action="/SearchResults" style="float: right; font-family: 'Trebuchet MS', sans-serif">
+            <input type="text" name="searchWord" placeholder="Search authors..." style="padding: 5px; font-family: 'Trebuchet MS', sans-serif"/>
+            <button type="submit" style="padding: 6px; padding-left: 17px; padding-right: 17px; border-radius: 3px; font-family: 'Trebuchet MS'; sans-seriffont-size: 14px; font-weight: bold;">Search</button>
+        </form>
+    </div>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="cheepbox" style="position: relative; display: inline-block; width: 98.2%; vertical-align: top;">
+            <h3>What's on your mind @authorName?</h3>
+            <form method="post">
+                <input style="float: left; width: 100%; resize: none; padding: 5px; box-sizing: border-box; overflow: hidden;" type="text" asp-for="Text" maxlength="160" oninput="updateCharCount(this)">
+                <span id="charCount" style="position: absolute; bottom: 8px; right: 85px; font-size: 0.85rem; color: gray; font-family: 'Trebuchet MS', sans-serif">0/160</span>
+                <input style="float: right; vertical-align: top; padding: 2px; border-radius: 3px;" type="submit" value="Share">
+            </form>
+        </div>
+    }
+    else
+    {
+        <div style="padding-top: 40px"></div>
+    }
+    
+
+    @if (Model.Cheeps.Any())
+    {
+        <ul id="messagelist" class="cheeps">
+            @foreach (var cheep in Model.Cheeps)
+            {
+                <li>
+                    <p class="cheep">
+                        <div>
+                            <strong style="padding-right: 10px">
+                                <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
+                            </strong>
+                            @if (SignInManager.IsSignedIn(User) && authorName.ToString() != @cheep.AuthorName)
+                            {
+                                @if (Model.FollowedAuthors.Any(a => a.Name == cheep.AuthorName))
+                                {
+                                    <form method="Post" asp-page-handler="Unfollow" asp-route-followAuthorName="@cheep.AuthorName" style="display:inline;">
+                                        <button type="submit" style="padding: 2px; padding-left: 10px; padding-right: 10px; border-radius: 3px; font-family: 'Trebuchet MS', sans-serif">Unfollow</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form method="Post" asp-page-handler="Follow" asp-route-followAuthorName="@cheep.AuthorName" style="display:inline;">
+                                        <button type="submit" style="padding: 2px; padding-left: 10px; padding-right: 10px; border-radius: 3px; font-family: 'Trebuchet MS', sans-serif">Follow</button>
+                                    </form>
+                                }
+                            }
+                        </div>
+                        @cheep.Text
+                        <br/>
+                        @if (@cheep.TimeStamp != null)
+                        {
+                        <small>&mdash; @cheep.TimeStamp.Substring(0,19)</small>
+                        }
+                        @if (SignInManager.IsSignedIn(User) && authorName.ToString() != @cheep.AuthorName) //Like button
+                        {
+                            if (cheep.AuthorName != null && cheep.Text != null && cheep.TimeStamp != null)
+                            {
+                                <div class="like-button-container">
+                                    @if (await Model.DoesUserLikeCheep(@cheep.AuthorName, @cheep.Text, @cheep.TimeStamp))
+                                    {
+                                        <form method="Post" asp-page-handler="UnLike">
+                                            <input type="hidden" name="cheepAuthorName" value="@cheep.AuthorName" />
+                                            <input type="hidden" name="text" value="@cheep.Text" />
+                                            <input type="hidden" name="timeStamp" value="@cheep.TimeStamp" />
+                                            <button class="like-button-liked">
+                                                <span class="heart">&#x2764;</span>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form method="Post" asp-page-handler="Like">
+                                            <input type="hidden" name="cheepAuthorName" value="@cheep.AuthorName" />
+                                            <input type="hidden" name="text" value="@cheep.Text" />
+                                            <input type="hidden" name="timeStamp" value="@cheep.TimeStamp" />
+                                            <button class="like-button-not-liked">
+                                                <span class="heart">&#x2764;</span>
+                                            </button>
+                                        </form>
+                                    }
+                                    <span id="likecount">@cheep.Likes</span>
+                                </div>
+                            }
+                        }
+                    </p>
+                </li>
+            }
+        </ul>
+        <div class="pagination">
+            @if (Model.PageNumber > 1)
+            {
+                <a style="font-family: 'Trebuchet MS', sans-serif" href="?page=@(Model.PageNumber - 1)" class="previous">Previous</a>
+            }
+
+            <span>Page @Model.PageNumber</span>
+
+            @if (Model.Cheeps.Count == Model.PageSize)
+            {
+                <a style="font-family: 'Trebuchet MS', sans-serif" href="?page=@(Model.PageNumber + 1)" class="next">Next</a>
+            }
+        </div>
+    }
+    else
+    {
+        <em>There are no cheeps so far.</em>
+    }
+</div>
+
+@section Scripts{
+    <script>
+        function updateCharCount(element) {
+            const charCounter = element.value.length;
+
+            // Update the character count display
+            document.getElementById('charCount').textContent = charCounter + "/160";
+
+            // Auto-resize only if it's a textarea
+            if (element.tagName.toLowerCase() === 'textarea') {
+                element.style.height = 'auto';
+                element.style.height = element.scrollHeight + 'px';
+            }
+        }
+    </script>
+
+    <script>
+        document.body.classList.add('hidden');
+
+        const pageKey = window.location.pathname; // Use the page's path as the key
+
+        // Save scroll position along with the current page's key
+        window.addEventListener('beforeunload', () => {
+            const scrollData = {
+                position: window.scrollY,
+                page: pageKey
+            };
+            localStorage.setItem('scrollData', JSON.stringify(scrollData));
+        });
+
+        // On page load, retrieve and apply the scroll position if it's for the same page
+        window.addEventListener('load', () => {
+            const scrollData = JSON.parse(localStorage.getItem('scrollData'));
+            if (scrollData && scrollData.page === pageKey) {
+                window.scrollTo(0, scrollData.position);
+            }
+            localStorage.removeItem('scrollData'); // Clear scroll position after applying
+            document.body.classList.remove('hidden');
+        });
+    </script>
+
+}

@@ -1,0 +1,63 @@
+name: Release Chirp Executables
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  # Trigger workflow on tag creation matching 'v*'
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Setup .NET environment
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x' # Use the appropriate .NET version for your project
+
+      # Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+
+      # Build, create a release and create zip files for the release. 
+      - name: Create ZIP files
+        run: |
+          # Create a release directory to hold all platform-specific releases
+          mkdir release
+
+          # Publish for Linux (default)
+          dotnet publish -c Release -o ./release/linux
+          cd release/linux
+          zip -r ../../my_project_linux.zip .
+
+          # Publish for macOS
+          cd ../../
+          dotnet publish -r osx-x64 -c Release -o ./release/mac
+          cd release/mac
+          zip -r ../../my_project_mac.zip .
+
+          # Publish for Windows
+          cd ../../
+          dotnet publish -r win-x64 -c Release -o ./release/win
+          cd release/win
+          zip -r ../../my_project_win.zip .
+
+      # Upload the zip files to the Github release
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v2.0.8
+        with:
+          files: |
+            my_project_linux.zip
+            my_project_mac.zip
+            my_project_win.zip

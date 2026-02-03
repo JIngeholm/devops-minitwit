@@ -1,0 +1,45 @@
+name: .NET Build and Test
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  push:
+    branches: 
+    - main
+    tags:
+      - "v*.*.*"
+  pull_request:
+    branches:
+    - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+          
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Add Playwright package
+        run: dotnet add test/Chirp.Web.Playwright.Test package Microsoft.Playwright
+
+      - name: Build project
+        run: dotnet build --no-restore
+
+      - name: Install Playwright
+        run: |
+          pwsh test/Chirp.Web.Playwright.Test/bin/Debug/net8.0/playwright.ps1 install --with-deps
+          pwsh test/Chirp.Web.Playwright.Test/bin/Debug/net8.0/playwright.ps1 install
+        
+      - name: Tests
+        run: |
+          export Authentication_Github_ClientId="${{ secrets.GITHUBCLIENTID }}"
+          export Authentication_Github_ClientSecret="${{ secrets.GITHUBCLIENTSECRET }}"
+          dotnet test --no-build --verbosity normal

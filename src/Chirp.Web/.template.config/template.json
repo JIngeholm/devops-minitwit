@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Helge Pfeiffer",
+    "classifications": [ "Web", "Razor" ],
+    "identity": "Chirp.Razor.Template",
+    "name": "Chirp Razor Template",
+    "description": "A Razor template for the BDSA course at ITU of Copenhagen. This template will be used to make a Razor application that can be used to create and manage Chirps.",
+    "shortName": "chirp-razor",
+    "sourceName": "Chirp.Razor.Initial",
+    "tags": {
+        "language": "C#",
+        "type": "solution"
+    },
+    "preferNameDirectory": true
+}

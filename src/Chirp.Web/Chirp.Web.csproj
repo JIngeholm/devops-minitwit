@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+      <UserSecretsId>7c41881e-39a3-4cc1-afc8-343e67afa656</UserSecretsId>
+  </PropertyGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Pages\Public.cshtml" />
+      <AdditionalFiles Include="Pages\Shared\_Layout.cshtml" />
+      <AdditionalFiles Include="Pages\UserTimeline.cshtml" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Content Update="appsettings.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="appsettings.Development.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Include=".azure\config" />
+      <Content Include=".template.config\template.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Chirp.Core\Chirp.Core.csproj" />
+        <ProjectReference Include="..\Chirp.Infrastructure\Chirp.Infrastructure.csproj" />
+
+    </ItemGroup>
+
+    <ItemGroup>
+        <!--
+      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+      -->
+      <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="8.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+      <!-- <PackageReference Include="PasswordHasher.SHA256.ASP.NET.CORE.Identity" Version="1.0.1" /> -->
+      
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Chat.db" />
+    </ItemGroup>
+    
+
+</Project>
